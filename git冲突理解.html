@@ -67,10 +67,10 @@
 </script>
 
 
-        <meta name="keywords" content="angular,">
-        <meta name="description" content="angular内置指令汇总">
+        <meta name="keywords" content="前端框架,">
+        <meta name="description" content="git冲突理解">
         <meta name="author" content="">
-        <title>angular内置指令汇总</title>
+        <title>git冲突理解</title>
     </head>
     <body>
         <article class="container">
@@ -87,116 +87,107 @@
 </header>
 
             <article class="main article">
-                <h1 class="title">angular内置指令汇总</h1>
+                <h1 class="title">git冲突理解</h1>
                 <section class="info">
                     
                     
                     
-                    <span class="date" data-time="1464919200"><span class="from"></span></span>
+                    <span class="date" data-time="1486864800"><span class="from"></span></span>
                     
-                    <span class="tags"><a class="tag" href="/tag/angular/index.html">angular</a></span>
+                    <span class="tags"><a class="tag" href="/tag/%e5%89%8d%e7%ab%af%e6%a1%86%e6%9e%b6/index.html">前端框架</a></span>
                 </section>
-                <article class="content"><table>
-<thead>
-<tr>
-<th>指令名</th>
-<th>含义</th>
-<th>示例代码</th>
-</tr>
-</thead>
+                <article class="content"><h2>冲突的两个关键词</h2>
 
-<tbody>
-<tr>
-<td>ng-app</td>
-<td>限定angular所管理的范围</td>
-<td>C1</td>
-</tr>
+<ul>
+<li>conflict</li>
+<li>rejected</li>
+</ul>
 
-<tr>
-<td>ng-init</td>
-<td>初始化数据模型</td>
-<td>C2</td>
-</tr>
+<h2>本地仓库冲突</h2>
 
-<tr>
-<td>ng-model</td>
-<td>数据模型</td>
-<td>C3</td>
-</tr>
+<h3>如何判断出现了冲突</h3>
 
-<tr>
-<td>ng-click</td>
-<td>点击</td>
-<td></td>
-</tr>
+<pre><code>CONFLIT   
+</code></pre>
 
-<tr>
-<td>ng-dblclick</td>
-<td>双击</td>
-<td></td>
-</tr>
+<h3>冲突的原因</h3>
 
-<tr>
-<td>ng-change</td>
-<td>select,checkbox标签独有的，不支持双向绑定</td>
-<td></td>
-</tr>
+<p>两个不同的分支修改了同一个文件的同一行代码，当他们需要合并(git merge)的时候，就会有冲突</p>
 
-<tr>
-<td>ng-submit</td>
-<td>提交表单相关</td>
-<td></td>
-</tr>
+<h3>冲突什么情况下会出现？</h3>
 
-<tr>
-<td>ng-cloak</td>
-<td>样式相关</td>
-<td></td>
-</tr>
+<ul>
+<li>git merge的时候 &ndash;&gt; 也就是分支进行合并的时候，对比两个文件有没有修改同一行代码</li>
+</ul>
 
-<tr>
-<td>ng-class</td>
-<td>类</td>
-<td></td>
-</tr>
+<h3>本地模拟冲突</h3>
 
-<tr>
-<td>ng-show</td>
-<td>显示隐藏</td>
-<td></td>
-</tr>
+<h4>实验一</h4>
 
-<tr>
-<td>ng-hide</td>
-<td>显示隐藏</td>
-<td></td>
-</tr>
+<p>a分支上面没有这一行代码，b分支上多了这一行 &ndash;&gt; 不会冲突</p>
 
-<tr>
-<td>ng-bind</td>
-<td>绑定数据模型</td>
-<td></td>
-</tr>
+<h4>实验二</h4>
 
-<tr>
-<td>ng-switch</td>
-<td>判断</td>
-<td></td>
-</tr>
+<p>a分支和b分支上都多了这一行，但是代码是相同的 &ndash;&gt; 不会冲突</p>
 
-<tr>
-<td>ng-switch-when</td>
-<td>判断</td>
-<td></td>
-</tr>
+<h4>实验三</h4>
 
-<tr>
-<td>ng-if</td>
-<td>显示隐藏、判断</td>
-<td></td>
-</tr>
-</tbody>
-</table>
+<p>a分支和b分支上都多了这一行，但是代码是不同的 &ndash;&gt; 冲突</p>
+
+<h3>如何解决冲突</h3>
+
+<ol>
+<li>确定我们最终要的代码</li>
+<li>执行<code>git add .</code></li>
+<li>执行<code>git commit -m '提交信息'</code></li>
+</ol>
+
+<h2>推送到远程服务器的时候出现拒绝(rejected)</h2>
+
+<h3>本地代码能推送的前提</h3>
+
+<ul>
+<li>本地的项目必须是基于远程Repository代码的基础上修改的</li>
+</ul>
+
+<h3>什么情况下出现rejected</h3>
+
+<ul>
+<li>本地代码很旧了，线上的代码有了最新其他的用户提交的最新的代码</li>
+</ul>
+
+<h2>解决的办法</h2>
+
+<ul>
+<li>将远程Repository中的代码git pull拉取到本地(git pull会给我们自动做一个merge,如果出现冲突会提示)</li>
+<li>然后再进行Push，即可完成代码提交</li>
+</ul>
+
+<h2>远程模拟冲突</h2>
+
+<ol>
+<li>创建一个github仓库</li>
+<li>克隆到本地</li>
+<li>在本地创建一个新的文件</li>
+<li>推送到服务器上面</li>
+<li>在服务器上改代码</li>
+<li>尝试修改本地代码，推送到服务器上面</li>
+</ol>
+
+<h2>如何解决rejected</h2>
+
+<ol>
+<li>执行<code>git pull origin master</code></li>
+<li>执行<code>git add .</code></li>
+<li>执行<code>git commit -m 'abc'</code></li>
+<li>执行<code>git push</code></li>
+</ol>
+
+<h2>注意</h2>
+
+<p>切换分支的时候，一定要把当前的仓库的不是在仓库里面的代码提交到仓库(工作区、暂存区)</p>
+
+<p>本地有一个新的文件或者说线上有最新的文件</p>
 </article>
                 <section class="author">
                     
@@ -207,13 +198,13 @@
                     
                     <section class="nav prev more">
                         <div class="head"></div>
-                        <a class="link" href="/express%e5%ae%9e%e7%8e%b0%e7%95%99%e8%a8%80%e6%9c%ac%e9%a1%b9%e7%9b%ae.html">express实现留言本项目</a>
+                        <a class="link" href="/vue%e7%ae%80%e6%98%8e%e6%95%99%e7%a8%8b.html">vue简明教程</a>
                     </section>
                     
                     
                     <section class="nav next more">
                         <div class="head"></div>
-                        <a class="link" href="/%e7%90%86%e8%a7%a3promise.html">理解promise</a>
+                        <a class="link" href="/angular_jquery.html">angular中使用jquery</a>
                     </section>
                     
                 </section>
